@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#6c63ff">
+
+    <title>Taskora — Smart To-Do App</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+</head>
+
+<body>
+
+<!-- Background -->
+<div class="background-orb orb-one"></div>
+<div class="background-orb orb-two"></div>
+
+<!-- ================= HEADER ================= -->
+
+<header class="topbar">
+
+    <div class="brand">
+        <div class="brand-icon">✓</div>
+
+        <div>
+            <h1>Taskora</h1>
+            <span>Smart productivity</span>
+        </div>
+    </div>
+
+    <div class="header-actions">
+
+        <div class="live-clock" id="liveClock">
+            00:00:00
+        </div>
+
+        <button
+            class="icon-btn"
+            id="notificationBtn"
+            title="Enable notifications"
+        >
+            🔔
+        </button>
+
+        <button
+            class="icon-btn"
+            id="themeBtn"
+            title="Toggle theme"
+        >
+            🌙
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="container">
+
+    <!-- Welcome -->
+    <section class="welcome-section">
+
+        <div>
+
+            <p class="eyebrow">
+                YOUR PRODUCTIVITY SPACE
+            </p>
+
+            <h2>
+                Make today
+                <span>count.</span>
+            </h2>
+
+            <p class="welcome-text">
+                Plan your tasks, focus on what matters,
+                and celebrate every small win.
+            </p>
+
+        </div>
+
+        <div class="date-card">
+
+            <span id="todayDay">
+                Saturday
+            </span>
+
+            <strong id="todayDate">
+                Aug 15
+            </strong>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= DASHBOARD ================= -->
+
+    <section class="dashboard-grid">
+
+        <!-- Progress -->
+        <div class="progress-card glass-card">
+
+            <div class="progress-info">
+
+                <div>
+
+                    <p class="card-label">
+                        TODAY'S PROGRESS
+                    </p>
+
+                    <h3 id="progressText">
+                        0%
+                    </h3>
+
+                    <span id="progressMessage">
+                        Let's get started!
+                    </span>
+
+                </div>
+
+                <div class="progress-ring">
+
+                    <svg viewBox="0 0 120 120">
+
+                        <circle
+                            class="ring-bg"
+                            cx="60"
+                            cy="60"
+                            r="50"
+                        />
+
+                        <circle
+                            class="ring-progress"
+                            id="progressCircle"
+                            cx="60"
+                            cy="60"
+                            r="50"
+                        />
+
+                    </svg>
+
+                    <div class="ring-number" id="ringNumber">
+                        0%
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Statistics -->
+
+        <div class="stats-card glass-card">
+
+            <div class="stat">
+
+                <span class="stat-icon purple">
+                    📋
+                </span>
+
+                <div>
+                    <strong id="totalTasks">0</strong>
+                    <span>Total</span>
+                </div>
+
+            </div>
+
+            <div class="stat">
+
+                <span class="stat-icon green">
+                    ✓
+                </span>
+
+                <div>
+                    <strong id="completedTasks">0</strong>
+                    <span>Completed</span>
+                </div>
+
+            </div>
+
+            <div class="stat">
+
+                <span class="stat-icon orange">
+                    ⏳
+                </span>
+
+                <div>
+                    <strong id="pendingTasks">0</strong>
+                    <span>Pending</span>
+                </div>
+
+            </div>
+
+            <div class="stat">
+
+                <span class="stat-icon red">
+                    !
+                </span>
+
+                <div>
+                    <strong id="overdueTasks">0</strong>
+                    <span>Overdue</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Streak -->
+
+        <div class="streak-card glass-card">
+
+            <div class="streak-fire">
+                🔥
+            </div>
+
+            <div>
+
+                <span>Current streak</span>
+
+                <strong>
+                    <span id="streakNumber">0</span>
+                    days
+                </strong>
+
+                <small>
+                    Keep going!
+                </small>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ADD TASK ================= -->
+
+    <section class="add-task-card glass-card">
+
+        <div class="section-heading">
+
+            <div>
+
+                <p class="eyebrow">
+                    PRODUCTIVITY
+                </p>
+
+                <h2>
+                    Create a task
+                </h2>
+
+            </div>
+
+            <button
+                class="collapse-btn"
+                id="collapseFormBtn"
+            >
+                −
+            </button>
+
+        </div>
+
+
+        <form id="taskForm">
+
+            <div class="input-group full">
+
+                <label>
+                    Task title
+                </label>
+
+                <input
+                    type="text"
+                    id="taskTitle"
+                    placeholder="What do you want to accomplish?"
+                    autocomplete="off"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="input-group">
+
+                    <label>
+                        Category
+                    </label>
+
+                    <select id="taskCategory">
+
+                        <option value="Personal">
+                            👤 Personal
+                        </option>
+
+                        <option value="Work">
+                            💼 Work
+                        </option>
+
+                        <option value="Study">
+                            📚 Study
+                        </option>
+
+                        <option value="Health">
+                            ❤️ Health
+                        </option>
+
+                        <option value="Shopping">
+                            🛒 Shopping
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Priority
+                    </label>
+
+                    <select id="taskPriority">
+
+                        <option value="low">
+                            🟢 Low
+                        </option>
+
+                        <option value="medium" selected>
+                            🟡 Medium
+                        </option>
+
+                        <option value="high">
+                            🔴 High
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Due date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="taskDate"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Due time
+                    </label>
+
+                    <input
+                        type="time"
+                        id="taskTime"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Notes
+                </label>
+
+                <textarea
+                    id="taskNotes"
+                    placeholder="Add some details..."
+                    rows="3"
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-bottom">
+
+                <label class="checkbox-label">
+
+                    <input
+                        type="checkbox"
+                        id="taskImportant"
+                    >
+
+                    <span class="custom-check">
+                        ★
+                    </span>
+
+                    Mark as important
+
+                </label>
+
+                <button
+                    class="primary-btn"
+                    type="submit"
+                >
+
+                    <span>＋</span>
+                    Add Task
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+    <!-- ================= TOOLBAR ================= -->
+
+    <section class="toolbar">
+
+        <div class="search-box">
+
+            <span>⌕</span>
+
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="Search tasks..."
+            >
+
+        </div>
+
+
+        <div class="filters">
+
+            <button
+                class="filter-btn active"
+                data-filter="all"
+            >
+                All
+            </button>
+
+            <button
+                class="filter-btn"
+                data-filter="active"
+            >
+                Active
+            </button>
+
+            <button
+                class="filter-btn"
+                data-filter="completed"
+            >
+                Completed
+            </button>
+
+            <button
+                class="filter-btn"
+                data-filter="overdue"
+            >
+                Overdue
+            </button>
+
+            <button
+                class="filter-btn"
+                data-filter="important"
+            >
+                ⭐ Important
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= TASK LIST ================= -->
+
+    <section class="tasks-section">
+
+        <div class="tasks-heading">
+
+            <div>
+
+                <h2>
+                    My Tasks
+                </h2>
+
+                <span id="taskCountText">
+                    0 tasks
+                </span>
+
+            </div>
+
+            <button
+                class="text-btn"
+                id="clearCompletedBtn"
+            >
+                Clear completed
+            </button>
+
+        </div>
+
+
+        <div
+            class="tasks-list"
+            id="tasksList"
+        >
+        </div>
+
+
+        <!-- Empty state -->
+
+        <div
+            class="empty-state"
+            id="emptyState"
+        >
+
+            <div class="empty-icon">
+                ✨
+            </div>
+
+            <h3>
+                Nothing here yet
+            </h3>
+
+            <p>
+                Add your first task and start winning your day.
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ================= TASK DETAIL MODAL ================= -->
+
+<div
+    class="modal-overlay"
+    id="taskModal"
+>
+
+    <div class="modal">
+
+        <button
+            class="modal-close"
+            id="modalClose"
+        >
+            ×
+        </button>
+
+        <div class="modal-icon">
+            📝
+        </div>
+
+        <h2 id="modalTitle">
+            Task details
+        </h2>
+
+        <div id="modalContent"></div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= CELEBRATION ================= -->
+
+<div
+    class="celebration-overlay"
+    id="celebrationOverlay"
+>
+
+    <div class="celebration">
+
+        <div class="celebration-stars">
+            ✦ ✧ ✦ ✧ ✦
+        </div>
+
+        <div class="trophy">
+            🏆
+        </div>
+
+        <h1 id="celebrationTitle">
+            Task Complete!
+        </h1>
+
+        <p id="celebrationMessage">
+            You did it! One more win for today.
+        </p>
+
+        <div class="flowers">
+            🌸 🌼 🌺 🌷 🌻
+        </div>
+
+        <button
+            class="primary-btn"
+            id="celebrationClose"
+        >
+            Continue Winning 🚀
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================= TIMER MODAL ================= -->
+
+<div
+    class="modal-overlay"
+    id="timerModal"
+>
+
+    <div class="timer-modal">
+
+        <button
+            class="modal-close"
+            id="timerClose"
+        >
+            ×
+        </button>
+
+        <p class="eyebrow">
+            FOCUS MODE
+        </p>
+
+        <h2 id="timerTaskName">
+            Focus Session
+        </h2>
+
+        <div class="big-timer">
+            <span id="timerDisplay">
+                25:00
+            </span>
+        </div>
+
+        <div class="timer-progress">
+
+            <div id="timerProgressBar"></div>
+
+        </div>
+
+        <div class="timer-controls">
+
+            <button
+                class="timer-control"
+                id="timerReset"
+            >
+                ↻
+            </button>
+
+            <button
+                class="timer-main"
+                id="timerStartPause"
+            >
+                ▶
+            </button>
+
+            <button
+                class="timer-control"
+                id="timerAddMinute"
+            >
+                +1m
+            </button>
+
+        </div>
+
+        <div class="timer-presets">
+
+            <button data-minutes="5">
+                5 min
+            </button>
+
+            <button data-minutes="15">
+                15 min
+            </button>
+
+            <button data-minutes="25">
+                25 min
+            </button>
+
+            <button data-minutes="50">
+                50 min
+            </button>
+
+        </div>
+
+        <p class="timer-tip">
+            💡 Stay focused. You've got this!
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- ================= TOAST ================= -->
+
+<div
+    class="toast-container"
+    id="toastContainer"
+></div>
+
+
+<!-- ================= CONFETTI ================= -->
+
+<div
+    class="confetti-container"
+    id="confettiContainer"
+></div>
+
+
+<script src="script.js"></script>
+
+</body>
+          </html>
